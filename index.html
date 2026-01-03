@@ -1,0 +1,2160 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="description" content="Buildify builds and manages clean, professional single-page websites for trades, designed to get more phone calls." />
+  <title>Buildify | Websites that get tradespeople more phone calls</title>
+
+  <style>
+    :root{
+      /* New palette */
+      --sky:#8ECAE6;
+      --teal:#219EBC;
+      --navy:#023047;
+      --yellow:#FFB703;
+      --orange:#FB8500;
+
+      /* Application */
+      --bg:#F9FAFB;
+      --text: var(--navy);
+      --muted: rgba(2,48,71,.70);
+      --muted2: rgba(2,48,71,.55);
+      --accent: var(--teal);
+      --line: rgba(2,48,71,.12);
+
+      --radius:16px;
+      --shadow: 0 10px 30px rgba(2,48,71,.08);
+      --shadow-soft: 0 6px 20px rgba(2,48,71,.06);
+      --container: 1120px;
+
+      --focus: 0 0 0 3px rgba(33,158,188,.26);
+      --header-h: 74px;
+
+      /* Spacing (reduced) */
+      --section-pad: 54px;
+      --section-pad-mobile: 40px;
+    }
+
+    *{ box-sizing:border-box; }
+    html{ scroll-behavior:smooth; }
+    body{
+      margin:0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+      color:var(--text);
+      background:var(--bg);
+      line-height:1.5;
+      text-rendering:optimizeLegibility;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+    }
+
+    /* Accessibility */
+    .skip-link{
+      position:absolute;
+      top:8px; left:8px;
+      padding:10px 12px;
+      background:#fff;
+      border:1px solid rgba(2,48,71,.12);
+      border-radius:12px;
+      box-shadow: var(--shadow-soft);
+      transform: translateY(-160%);
+      transition: transform .2s ease;
+      z-index:9999;
+      color:var(--text);
+      text-decoration:none;
+      font-weight:700;
+    }
+    .skip-link:focus{ transform: translateY(0); outline:none; box-shadow: var(--shadow-soft), var(--focus); }
+
+    a{ color:inherit; }
+    a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visible, summary:focus-visible{
+      outline:none;
+      box-shadow: var(--focus);
+      border-radius: 10px;
+    }
+
+    .container{
+      width:min(var(--container), calc(100% - 40px));
+      margin:0 auto;
+    }
+
+    /* Header */
+    header{
+      position:sticky;
+      top:0;
+      z-index:1000;
+      height:var(--header-h);
+      display:flex;
+      align-items:center;
+      background: rgba(249,250,251,.86);
+      backdrop-filter: blur(10px);
+      border-bottom:1px solid transparent;
+      transition: border-color .2s ease, box-shadow .2s ease, background .2s ease;
+    }
+    header.scrolled{
+      border-bottom-color: rgba(2,48,71,.10);
+      box-shadow: 0 8px 24px rgba(2,48,71,.06);
+      background: rgba(249,250,251,.94);
+    }
+    .nav-wrap{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:16px;
+      width:100%;
+    }
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      text-decoration:none;
+      font-weight:900;
+      letter-spacing:-0.02em;
+    }
+    .logo{
+      width:34px;height:34px;
+      border-radius:12px;
+      border:1px solid rgba(2,48,71,.12);
+      background: linear-gradient(135deg, #fff, rgba(142,202,230,.22));
+      box-shadow: var(--shadow-soft);
+      display:grid;
+      place-items:center;
+      flex:none;
+    }
+    .logo svg{ width:18px;height:18px; color: var(--navy); }
+    .brand span{ font-size:16px; color: var(--navy); }
+
+    nav{
+      display:flex;
+      align-items:center;
+      gap:10px;
+    }
+    .nav-links{
+      display:flex;
+      align-items:center;
+      gap:6px;
+      padding:6px;
+      border:1px solid rgba(2,48,71,.10);
+      border-radius: 999px;
+      background:#fff;
+      box-shadow: var(--shadow-soft);
+    }
+    .nav-links a{
+      font-size:14px;
+      text-decoration:none;
+      color:var(--muted);
+      padding:8px 12px;
+      border-radius:999px;
+      transition: background .15s ease, color .15s ease;
+      position:relative;
+    }
+    .nav-links a:hover{ background: rgba(33,158,188,.08); color:var(--text); }
+    .nav-links a.active{
+      background: rgba(33,158,188,.12);
+      color: var(--text);
+    }
+
+    .cta{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:10px;
+      padding:10px 14px;
+      border-radius:999px;
+      border:1px solid rgba(33,158,188,.25);
+      background: var(--accent);
+      color:#fff;
+      font-weight:800;
+      text-decoration:none;
+      box-shadow: 0 10px 24px rgba(33,158,188,.18);
+      transition: transform .12s ease, box-shadow .12s ease, filter .12s ease;
+      white-space:nowrap;
+    }
+    .cta:hover{ transform: translateY(-1px); filter: brightness(1.02); box-shadow: 0 14px 30px rgba(33,158,188,.22); }
+
+    .ghost{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:10px;
+      padding:10px 14px;
+      border-radius:999px;
+      border:1px solid rgba(2,48,71,.12);
+      background:#fff;
+      color:var(--text);
+      font-weight:800;
+      text-decoration:none;
+      box-shadow: var(--shadow-soft);
+      transition: transform .12s ease, box-shadow .12s ease, background .12s ease;
+      white-space:nowrap;
+    }
+    .ghost:hover{ transform: translateY(-1px); background: rgba(2,48,71,.02); }
+
+    .hamburger{
+      display:none;
+      width:44px;height:44px;
+      border-radius:14px;
+      border:1px solid rgba(2,48,71,.12);
+      background:#fff;
+      box-shadow: var(--shadow-soft);
+      cursor:pointer;
+      position:relative;
+    }
+    .hamburger span{
+      position:absolute;
+      left:12px;
+      right:12px;
+      height:2px;
+      background: var(--navy);
+      border-radius:2px;
+      transition: transform .18s ease, top .18s ease, opacity .18s ease;
+    }
+    .hamburger span:nth-child(1){ top:15px; }
+    .hamburger span:nth-child(2){ top:21px; }
+    .hamburger span:nth-child(3){ top:27px; }
+    .hamburger[aria-expanded="true"] span:nth-child(1){ top:21px; transform: rotate(45deg); }
+    .hamburger[aria-expanded="true"] span:nth-child(2){ opacity:0; }
+    .hamburger[aria-expanded="true"] span:nth-child(3){ top:21px; transform: rotate(-45deg); }
+
+    .mobile-drawer{
+      display:none;
+      position:fixed;
+      top: calc(var(--header-h) + 10px);
+      left: 20px;
+      right: 20px;
+      background:#fff;
+      border:1px solid rgba(2,48,71,.12);
+      border-radius: 22px;
+      box-shadow: var(--shadow);
+      padding: 12px;
+      transform: translateY(-8px);
+      opacity:0;
+      pointer-events:none;
+      transition: transform .2s ease, opacity .2s ease;
+      z-index:1200;
+    }
+    .mobile-drawer.open{
+      opacity:1;
+      transform: translateY(0);
+      pointer-events:auto;
+    }
+    .mobile-drawer a{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      padding: 12px 12px;
+      border-radius:14px;
+      text-decoration:none;
+      color: var(--navy);
+      font-weight:750;
+    }
+    .mobile-drawer a:hover{ background: rgba(33,158,188,.08); }
+    .mobile-drawer .row{
+      display:flex; gap:10px; padding: 10px 6px 6px;
+    }
+    .mobile-drawer .row a{ flex:1; justify-content:center; }
+
+    /* Sections */
+    main{ padding-bottom: 84px; } /* space for mobile CTA bar */
+    section{
+      padding: var(--section-pad) 0;
+      border-bottom: 1px solid transparent;
+    }
+    .section-head{
+      display:flex;
+      align-items:flex-end;
+      justify-content:space-between;
+      gap:18px;
+      margin-bottom: 18px; /* reduced */
+    }
+    h1,h2,h3{ line-height:1.15; letter-spacing:-0.03em; margin:0; }
+    h2{ font-size: 32px; }
+    h3{ font-size: 18px; }
+    p{ margin: 0; color: var(--muted); }
+    .kicker{
+      display:inline-flex;
+      gap:10px;
+      align-items:center;
+      color: var(--muted);
+      font-weight:750;
+      font-size:13px;
+    }
+    .dot{
+      width:8px;height:8px;border-radius:999px;
+      background: rgba(255,183,3,.9);
+      box-shadow: 0 0 0 6px rgba(255,183,3,.18);
+    }
+
+    /* Hero */
+    .hero{
+      padding-top: 38px; /* reduced */
+      border-bottom: 1px solid rgba(2,48,71,.10);
+      position:relative;
+      overflow:hidden;
+    }
+    .hero-card{
+      position:relative;
+      border: 1px solid rgba(2,48,71,.12);
+      border-radius: 28px;
+      background:#fff;
+      box-shadow: var(--shadow);
+      padding: 32px; /* reduced */
+      overflow:hidden;
+      isolation:isolate;
+    }
+    .hero-grid{
+      position:absolute;
+      inset:-2px;
+      opacity:.78;
+      pointer-events:none;
+      z-index:0;
+      background:
+        radial-gradient(520px 240px at var(--mx, 25%) var(--my, 30%), rgba(33,158,188,.18), transparent 60%),
+        linear-gradient(to right, rgba(2,48,71,.10) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(2,48,71,.10) 1px, transparent 1px);
+      background-size: auto, 44px 44px, 44px 44px;
+      transform: translate3d(0,0,0);
+      animation: gridDrift 12s linear infinite;
+      mask-image: radial-gradient(closest-side, rgba(0,0,0,.75), transparent 86%);
+    }
+    @keyframes gridDrift{
+      0%{ background-position: 0 0, 0 0, 0 0; }
+      100%{ background-position: 0 0, 44px 44px, 44px 44px; }
+    }
+    .hero-inner{
+      position:relative;
+      z-index:1;
+      display:grid;
+      grid-template-columns: 1.35fr .65fr;
+      gap: 22px; /* reduced */
+      align-items:start;
+    }
+    .hero h1{
+      font-size: 46px;
+      margin-bottom: 12px;
+      color: var(--navy);
+    }
+    .hero .sub{
+      font-size: 16px;
+      max-width: 56ch;
+      margin-bottom: 16px;
+      color: var(--muted);
+    }
+    .hero-actions{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      margin-top: 6px;
+    }
+    .hero-panel{
+      border:1px solid rgba(2,48,71,.12);
+      border-radius: 22px;
+      background: rgba(249,250,251,.75);
+      padding: 14px; /* reduced */
+    }
+    .hero-panel .mini{
+      display:flex;
+      flex-direction:column;
+      gap:10px; /* reduced */
+    }
+    .badge{
+      display:flex;
+      gap:10px;
+      align-items:flex-start;
+      padding: 12px;
+      background:#fff;
+      border:1px solid rgba(2,48,71,.12);
+      border-radius: 18px;
+      box-shadow: var(--shadow-soft);
+    }
+    .badge svg{ width:18px;height:18px; flex:none; margin-top:2px; color: var(--teal); }
+    .badge strong{ display:block; font-size: 13px; color: var(--navy); }
+    .badge span{ display:block; font-size: 12.5px; color: var(--muted); margin-top:2px; }
+
+    /* Trust strip */
+    .trust{
+      padding: 12px 0 0;
+      border-bottom: 1px solid rgba(2,48,71,.10);
+    }
+    .trust-row{
+      display:grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+      margin: 14px 0 18px; /* reduced */
+    }
+    .trust-item{
+      display:flex;
+      gap:10px;
+      align-items:center;
+      padding: 12px 14px;
+      border:1px solid rgba(2,48,71,.12);
+      border-radius: 18px;
+      background:#fff;
+      box-shadow: var(--shadow-soft);
+      min-height: 56px;
+    }
+    .trust-item svg{ width:18px;height:18px; color: var(--teal); }
+    .trust-item span{ font-weight:750; font-size: 13px; color: var(--navy); }
+
+    /* Cards & grids */
+    .grid-2{ display:grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .grid-3{ display:grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+    .grid-4{ display:grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
+
+    .card{
+      border:1px solid rgba(2,48,71,.12);
+      border-radius: var(--radius);
+      background:#fff;
+      box-shadow: var(--shadow-soft);
+      padding: 18px;
+    }
+    .card.soft{
+      background: rgba(255,255,255,.78);
+    }
+    .card h3{ margin-bottom: 8px; color: var(--navy); }
+    .meta{
+      font-size: 13px;
+      color: var(--muted2);
+    }
+    .pill{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding: 6px 10px;
+      border:1px solid rgba(2,48,71,.12);
+      border-radius: 999px;
+      font-size: 12px;
+      color: var(--muted);
+      background:#fff;
+      box-shadow: var(--shadow-soft);
+      user-select:none;
+      white-space: nowrap;
+    }
+
+    /* Problem -> Solution emphasis (NO BOX) */
+    .highlight-target{
+      padding:0;
+      border:none;
+      background:none;
+      border-radius:0;
+      display:inline;
+      box-decoration-break: clone;
+      transition: color .2s ease, text-decoration-color .2s ease, font-weight .2s ease;
+      text-decoration: underline;
+      text-decoration-thickness: 2px;
+      text-underline-offset: 4px;
+      text-decoration-color: rgba(2,48,71,.18);
+    }
+    .highlight-target.on{
+      font-weight: 800;
+      color: var(--navy);
+      text-decoration-color: rgba(33,158,188,.80);
+    }
+
+    /* What you get tabs */
+    .tabs{
+      display:grid;
+      grid-template-columns: .9fr 1.1fr;
+      gap: 14px;
+      align-items: start;
+    }
+    .tablist{
+      display:flex;
+      flex-direction:column;
+      gap:8px;
+    }
+    .tab{
+      text-align:left;
+      padding: 12px 12px;
+      border-radius: 16px;
+      border:1px solid rgba(2,48,71,.12);
+      background:#fff;
+      box-shadow: var(--shadow-soft);
+      cursor:pointer;
+      font-weight:800;
+      color: var(--navy);
+      transition: transform .12s ease, background .12s ease, border-color .12s ease;
+    }
+    .tab:hover{ transform: translateY(-1px); background: rgba(33,158,188,.06); }
+    .tab[aria-selected="true"]{
+      border-color: rgba(33,158,188,.28);
+      background: rgba(33,158,188,.10);
+    }
+    .tabpanel{
+      padding: 18px;
+      border-radius: 18px;
+      border:1px solid rgba(2,48,71,.12);
+      background:#fff;
+      box-shadow: var(--shadow-soft);
+      min-height: 186px; /* slightly reduced */
+    }
+    .panel-bullets{
+      margin: 12px 0 0;
+      padding:0;
+      list-style:none;
+      display:flex;
+      flex-direction:column;
+      gap:10px;
+    }
+    .panel-bullets li{
+      display:flex; gap:10px; align-items:flex-start;
+      color: var(--muted);
+    }
+    .check{
+      width:18px;height:18px; flex:none;
+      margin-top:1px;
+      color: var(--teal);
+    }
+
+    /* How it works */
+    .steps-wrap{
+      display:grid;
+      grid-template-columns: 1fr .9fr;
+      gap: 16px;
+      align-items:start;
+    }
+    .steps{
+      display:grid;
+      gap: 12px;
+    }
+    .step{
+      display:flex;
+      gap:12px;
+      align-items:flex-start;
+    }
+    .num{
+      width:34px; height:34px;
+      border-radius: 14px;
+      border:1px solid rgba(33,158,188,.25);
+      background: rgba(33,158,188,.10);
+      display:grid;
+      place-items:center;
+      font-weight:900;
+      color: var(--navy);
+      flex:none;
+      box-shadow: var(--shadow-soft);
+    }
+    .step .card{ flex:1; }
+    .progress{
+      position:sticky;
+      top: calc(var(--header-h) + 18px);
+      align-self:start;
+      padding: 16px;
+    }
+    .progress h3{ margin-bottom: 10px; }
+    .progress-list{
+      display:flex;
+      flex-direction:column;
+      gap:8px;
+      margin-top:12px;
+    }
+    .progress-item{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap: 10px;
+      padding: 10px 12px;
+      border:1px solid rgba(2,48,71,.12);
+      border-radius: 16px;
+      background:#fff;
+      box-shadow: var(--shadow-soft);
+      color: var(--muted);
+      font-weight:750;
+    }
+    .progress-item.active{
+      border-color: rgba(33,158,188,.28);
+      background: rgba(33,158,188,.10);
+      color: var(--navy);
+    }
+    .bar{
+      height: 8px;
+      background: rgba(2,48,71,.06);
+      border-radius: 999px;
+      overflow:hidden;
+      margin-top: 12px;
+      border:1px solid rgba(2,48,71,.10);
+    }
+    .bar > div{
+      height:100%;
+      width: 0%;
+      background: rgba(33,158,188,.70);
+      transition: width .15s linear;
+    }
+
+    /* Pricing (slider removed) */
+    .price-card{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      align-items: stretch;
+    }
+    .price-main{
+      padding: 22px;
+      border-radius: 22px;
+      border:1px solid rgba(2,48,71,.12);
+      background:#fff;
+      box-shadow: var(--shadow);
+    }
+    .price-main h2{ margin-bottom: 10px; }
+    .price-copy{ display:grid; gap:10px; margin-top: 10px; }
+    .price-copy strong{ color: var(--navy); }
+    .price-aside{
+      padding: 18px;
+      border-radius: 22px;
+      border:1px solid rgba(2,48,71,.12);
+      background: rgba(255,255,255,.78);
+      box-shadow: var(--shadow-soft);
+      display:flex;
+      flex-direction:column;
+      justify-content:space-between;
+      gap: 12px;
+    }
+    .included{
+      padding: 14px;
+      border-radius: 18px;
+      border:1px solid rgba(2,48,71,.12);
+      background:#fff;
+      box-shadow: var(--shadow-soft);
+    }
+    .included ul{
+      margin: 10px 0 0;
+      padding:0;
+      list-style:none;
+      display:grid;
+      gap:10px;
+    }
+    .included li{
+      display:flex;
+      gap:10px;
+      align-items:flex-start;
+      color: var(--muted);
+    }
+
+    /* Fit filter */
+    .fit{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+    .fit-col{
+      padding: 18px;
+      border-radius: 22px;
+      border:1px solid rgba(2,48,71,.12);
+      background:#fff;
+      box-shadow: var(--shadow-soft);
+      transition: transform .15s ease, box-shadow .15s ease;
+    }
+    .fit-col:hover{ transform: translateY(-2px); box-shadow: var(--shadow); }
+    .fit-col h3{ margin-bottom: 10px; }
+    .fit-list{
+      padding:0; margin:0;
+      list-style:none;
+      display:grid;
+      gap:10px;
+    }
+    .fit-list li{
+      display:flex;
+      gap:10px;
+      align-items:flex-start;
+      color: var(--muted);
+    }
+
+    /* Accordion (FAQ) */
+    .accordion{
+      display:grid;
+      gap:10px;
+    }
+    details{
+      border:1px solid rgba(2,48,71,.12);
+      border-radius: 18px;
+      background:#fff;
+      box-shadow: var(--shadow-soft);
+      overflow:hidden;
+    }
+    summary{
+      list-style:none;
+      cursor:pointer;
+      padding: 14px 16px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap: 16px;
+      font-weight:850;
+      color: var(--navy);
+    }
+    summary::-webkit-details-marker{ display:none; }
+    .chev{
+      width:18px;height:18px;
+      transition: transform .18s ease;
+      color: var(--muted2);
+      flex:none;
+    }
+    details[open] .chev{ transform: rotate(180deg); }
+    .faq-body{
+      padding: 0 16px 14px 16px;
+      color: var(--muted);
+    }
+
+    /* Recent builds collapsible */
+    .collapse{
+      border:1px solid rgba(2,48,71,.12);
+      border-radius: 22px;
+      background:#fff;
+      box-shadow: var(--shadow-soft);
+      overflow:hidden;
+    }
+    .collapse-head{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      padding: 14px 16px;
+      gap: 14px;
+    }
+    .collapse-btn{
+      border:1px solid rgba(2,48,71,.12);
+      background:#fff;
+      border-radius: 999px;
+      padding: 10px 12px;
+      cursor:pointer;
+      font-weight:850;
+      box-shadow: var(--shadow-soft);
+      display:flex;
+      align-items:center;
+      gap:8px;
+      color: var(--navy);
+    }
+    .collapse-content{
+      padding: 0 16px 16px 16px;
+      display:none;
+    }
+    .collapse.open .collapse-content{ display:block; }
+    .projects{ margin-top: 12px; }
+    .project{
+      display:flex;
+      flex-direction:column;
+      gap:6px;
+      padding: 16px;
+      border-radius: 18px;
+      border:1px solid rgba(2,48,71,.12);
+      background: rgba(142,202,230,.12);
+    }
+    .project .tag{
+      font-size: 12px;
+      color: var(--muted2);
+      font-weight:750;
+    }
+
+    /* Contact */
+    .contact-grid{
+      display:grid;
+      grid-template-columns: 1fr 1.1fr;
+      gap: 14px;
+      align-items:start;
+    }
+    .contact-card{
+      border:1px solid rgba(2,48,71,.12);
+      border-radius: 22px;
+      background:#fff;
+      box-shadow: var(--shadow);
+      padding: 18px;
+    }
+    .contact-actions{
+      display:grid;
+      gap: 10px;
+      margin-top: 14px;
+    }
+    .action-row{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+    }
+    .mini-btn{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:10px 12px;
+      border-radius: 14px;
+      border:1px solid rgba(2,48,71,.12);
+      background:#fff;
+      cursor:pointer;
+      font-weight:850;
+      box-shadow: var(--shadow-soft);
+      text-decoration:none;
+      color: var(--navy);
+    }
+    .mini-btn:hover{ background: rgba(33,158,188,.06); }
+    .mini-btn svg{ width:16px;height:16px; color: var(--muted2); }
+    form{ display:grid; gap: 10px; }
+    .fields{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+    label{
+      font-size: 12px;
+      font-weight:850;
+      color: var(--navy);
+      display:block;
+      margin-bottom: 6px;
+    }
+    input, textarea{
+      width:100%;
+      padding: 12px 12px;
+      border-radius: 14px;
+      border:1px solid rgba(2,48,71,.12);
+      background:#fff;
+      color: var(--navy);
+      font-size: 14px;
+      box-shadow: inset 0 1px 0 rgba(2,48,71,.02);
+      transition: border-color .12s ease, box-shadow .12s ease, background .12s ease;
+    }
+    textarea{ resize: vertical; min-height: 110px; }
+    .field{ display:flex; flex-direction:column; }
+    .field.full{ grid-column: 1 / -1; }
+    .error{
+      font-size: 12px;
+      color: #b91c1c;
+      margin-top: 6px;
+      display:none;
+    }
+    .field.invalid input, .field.invalid textarea{
+      border-color: rgba(185,28,28,.35);
+      background: rgba(185,28,28,.03);
+    }
+    .field.invalid .error{ display:block; }
+    .form-actions{
+      display:flex;
+      gap:10px;
+      align-items:center;
+      justify-content:space-between;
+      flex-wrap:wrap;
+      margin-top: 6px;
+    }
+    .note{
+      font-size: 12px;
+      color: var(--muted2);
+    }
+    .success{
+      display:none;
+      padding: 14px;
+      border-radius: 18px;
+      border:1px solid rgba(33,158,188,.28);
+      background: rgba(33,158,188,.10);
+      color: var(--navy);
+      box-shadow: var(--shadow-soft);
+    }
+    .success strong{ display:block; margin-bottom: 4px; }
+    .what-next{
+      margin-top: 10px;
+      padding-top: 10px;
+      border-top: 1px solid rgba(33,158,188,.22);
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    /* Footer */
+    footer{
+      padding: 22px 0 110px; /* reduced */
+      color: var(--muted2);
+    }
+    .footer-inner{
+      display:flex;
+      align-items:flex-start;
+      justify-content:space-between;
+      gap: 14px;
+      flex-wrap:wrap;
+      border-top:1px solid rgba(2,48,71,.10);
+      padding-top: 16px;
+    }
+    .footer-links{
+      display:flex;
+      gap:12px;
+      flex-wrap:wrap;
+    }
+    .footer-links a{
+      text-decoration:none;
+      color: var(--muted2);
+      font-weight:750;
+      font-size: 13px;
+    }
+    .footer-links a:hover{ color: var(--navy); }
+
+    /* Reveal on scroll */
+    .reveal{
+      opacity:0;
+      transform: translateY(10px);
+      transition: opacity .35s ease, transform .35s ease;
+    }
+    .reveal.in{
+      opacity:1;
+      transform: translateY(0);
+    }
+
+    /* Back to top */
+    .backtop{
+      position:fixed;
+      right: 16px;
+      bottom: 92px;
+      z-index:1300;
+      width: 46px; height: 46px;
+      border-radius: 16px;
+      border:1px solid rgba(2,48,71,.12);
+      background:#fff;
+      box-shadow: var(--shadow);
+      cursor:pointer;
+      display:grid;
+      place-items:center;
+      opacity:0;
+      pointer-events:none;
+      transition: opacity .2s ease, transform .2s ease;
+    }
+    .backtop.show{
+      opacity:1;
+      pointer-events:auto;
+      transform: translateY(-2px);
+    }
+    .backtop svg{ width:18px;height:18px; color: var(--muted2); }
+
+    /* Mobile CTA bar */
+    .mobile-cta{
+      position:fixed;
+      left: 12px;
+      right: 12px;
+      bottom: 12px;
+      z-index:1400;
+      display:none;
+      gap: 10px;
+      background: rgba(255,255,255,.92);
+      border:1px solid rgba(2,48,71,.12);
+      border-radius: 22px;
+      box-shadow: var(--shadow);
+      padding: 10px;
+      backdrop-filter: blur(10px);
+    }
+    .mobile-cta a{
+      flex:1;
+      text-decoration:none;
+      border-radius: 18px;
+      border:1px solid rgba(2,48,71,.12);
+      background:#fff;
+      color: var(--navy);
+      font-weight:900;
+      padding: 12px 10px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      gap: 8px;
+      box-shadow: var(--shadow-soft);
+    }
+    .mobile-cta a.primary{
+      border-color: rgba(33,158,188,.25);
+      background: var(--accent);
+      color:#fff;
+      box-shadow: 0 12px 26px rgba(33,158,188,.18);
+    }
+    .mobile-cta svg{ width:16px;height:16px; }
+
+    /* Responsive */
+    @media (max-width: 980px){
+      .hero-inner{ grid-template-columns: 1fr; }
+      .trust-row{ grid-template-columns: 1fr 1fr; }
+      .tabs{ grid-template-columns: 1fr; }
+      .steps-wrap{ grid-template-columns: 1fr; }
+      .progress{ position:relative; top:auto; }
+      .price-card{ grid-template-columns: 1fr; }
+      .contact-grid{ grid-template-columns: 1fr; }
+    }
+    @media (max-width: 860px){
+      .nav-links, nav .ghost{ display:none; }
+      .hamburger{ display:inline-block; }
+      .mobile-drawer{ display:block; }
+    }
+    @media (max-width: 720px){
+      h2{ font-size: 28px; }
+      .hero h1{ font-size: 38px; }
+      section{ padding: var(--section-pad-mobile) 0; }
+      .fields{ grid-template-columns: 1fr; }
+      .trust-row{ grid-template-columns: 1fr; }
+      .mobile-cta{ display:flex; }
+      main{ padding-bottom: 128px; }
+    }
+
+    /* Reduced motion */
+    @media (prefers-reduced-motion: reduce){
+      html{ scroll-behavior:auto; }
+      *{ animation:none !important; transition:none !important; }
+    }
+  </style>
+</head>
+
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header id="siteHeader" role="banner">
+    <div class="container nav-wrap">
+      <a class="brand" href="#top" aria-label="Buildify home">
+        <div class="logo" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none">
+            <path d="M8 5h6a4 4 0 010 8H8V5z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+            <path d="M8 13h7a3.5 3.5 0 010 7H8v-7z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <span>Buildify</span>
+      </a>
+
+      <nav aria-label="Primary">
+        <div class="nav-links" role="navigation" aria-label="Section links">
+          <a href="#what-you-get" data-nav>What you get</a>
+          <a href="#how-it-works" data-nav>How it works</a>
+          <a href="#pricing" data-nav>Pricing</a>
+          <a href="#faq" data-nav>FAQ</a>
+          <a href="#contact" data-nav>Contact</a>
+        </div>
+
+        <a class="cta" href="#contact" data-cta>Get a free example</a>
+
+        <button class="hamburger" id="menuBtn" aria-expanded="false" aria-controls="mobileDrawer" aria-label="Open menu">
+          <span></span><span></span><span></span>
+        </button>
+
+        <div class="mobile-drawer" id="mobileDrawer" role="dialog" aria-modal="true" aria-label="Mobile menu">
+          <a href="#what-you-get" data-nav-mobile>What you get <span aria-hidden="true">→</span></a>
+          <a href="#how-it-works" data-nav-mobile>How it works <span aria-hidden="true">→</span></a>
+          <a href="#pricing" data-nav-mobile>Pricing <span aria-hidden="true">→</span></a>
+          <a href="#faq" data-nav-mobile>FAQ <span aria-hidden="true">→</span></a>
+          <a href="#contact" data-nav-mobile>Contact <span aria-hidden="true">→</span></a>
+          <div class="row">
+            <a class="ghost" href="tel:+447579043141" aria-label="Call 07579 043141">Call</a>
+            <a class="cta" href="#contact">Free example</a>
+          </div>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <!-- HERO -->
+    <section class="hero" id="top" aria-label="Hero">
+      <div class="container">
+        <div class="hero-card" id="heroCard">
+          <div class="hero-grid" aria-hidden="true"></div>
+
+          <div class="hero-inner">
+            <div>
+              <div class="kicker">
+                <span class="dot" aria-hidden="true"></span>
+                Single-page websites for trades, built to drive calls
+              </div>
+
+              <h1>Websites that get tradespeople more phone calls</h1>
+              <p class="sub">
+                Buildify designs and manages clean, professional sites for trades, without big upfront costs or tech stress.
+              </p>
+
+              <div class="hero-actions">
+                <a class="cta" href="#contact">Get a free example site</a>
+                <a class="ghost" href="#how-it-works">See how it works</a>
+              </div>
+
+              <div style="margin-top:14px; display:flex; gap:10px; flex-wrap:wrap;">
+                <span class="pill" title="No contract">No contract</span>
+                <span class="pill" title="Cancel anytime">Cancel anytime</span>
+                <span class="pill" title="Click-to-call focused">Click-to-call focused</span>
+              </div>
+            </div>
+
+            <aside class="hero-panel" aria-label="Quick info">
+              <div class="mini">
+                <div class="badge">
+                  <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                    <path d="M6 12h12M12 6v12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                    <path d="M5 5h14v14H5z" stroke="currentColor" stroke-width="2" opacity=".35"/>
+                  </svg>
+                  <div>
+                    <strong>Free example site</strong>
+                    <span>See what your website could look like before you commit.</span>
+                  </div>
+                </div>
+
+                <div class="badge">
+                  <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                    <path d="M7 12l3 3 7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M4.5 12a7.5 7.5 0 1015 0 7.5 7.5 0 10-15 0z" stroke="currentColor" stroke-width="2" opacity=".35"/>
+                  </svg>
+                  <div>
+                    <strong>Managed monthly</strong>
+                    <span>Hosting, updates, and changes handled by us.</span>
+                  </div>
+                </div>
+
+                <div class="badge">
+                  <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                    <path d="M5 12a7 7 0 0114 0v5a2 2 0 01-2 2h-2" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                    <path d="M7 20h4" stroke="currentColor" stroke-width="2" stroke-linecap="round" opacity=".6"/>
+                  </svg>
+                  <div>
+                    <strong>Manchester-based, operating globally</strong>
+                    <span>Trade-friendly sites built for real-world enquiries.</span>
+                  </div>
+                </div>
+              </div>
+            </aside>
+          </div>
+        </div>
+      </div>
+
+      <!-- TRUST STRIP -->
+      <div class="trust" aria-label="Trust strip">
+        <div class="container">
+          <div class="trust-row">
+            <div class="trust-item">
+              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M4 20V9l8-5 8 5v11" stroke="currentColor" stroke-width="2" opacity=".6"/>
+                <path d="M9 20v-7h6v7" stroke="currentColor" stroke-width="2"/>
+              </svg>
+              <span>Built for trades</span>
+            </div>
+            <div class="trust-item">
+              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M7 4h10v16H7z" stroke="currentColor" stroke-width="2" opacity=".6"/>
+                <path d="M10 18h4" stroke="currentColor" stroke-width="2"/>
+              </svg>
+              <span>Mobile-first</span>
+            </div>
+            <div class="trust-item">
+              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M7 12h10" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                <path d="M14 8l4 4-4 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M5 6h14v12H5z" stroke="currentColor" stroke-width="2" opacity=".35"/>
+              </svg>
+              <span>Click-to-call focused</span>
+            </div>
+            <div class="trust-item">
+              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M12 22s7-4.5 7-12V5l-7-3-7 3v5c0 7.5 7 12 7 12z" stroke="currentColor" stroke-width="2" opacity=".6"/>
+                <path d="M9 12l2 2 4-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+              <span>Manchester-based, operating globally</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PROBLEM -> SOLUTION -->
+    <section id="problem-solution" aria-label="Problem and solution">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <div class="kicker"><span class="dot" aria-hidden="true"></span>Why Buildify exists</div>
+            <h2>Word-of-mouth brings interest. Your website closes the call.</h2>
+          </div>
+          <div class="pill" aria-hidden="true">Simple. Clean. Call-focused.</div>
+        </div>
+
+        <div class="grid-2">
+          <div class="card reveal">
+            <h3>The problem</h3>
+            <p>
+              When someone hears about you from a mate, they usually search you before they call.
+              <span class="highlight-target" data-highlight>
+                No website, or a website that looks dated, can reduce trust and cost you enquiries.
+              </span>
+            </p>
+          </div>
+
+          <div class="card reveal">
+            <h3>The fix</h3>
+            <p>
+              Buildify builds a clean, fast, trade-friendly site that makes it easy to call.
+              <span class="highlight-target" data-highlight>
+                Clear layout, strong messaging, and click-to-call everywhere it matters.
+              </span>
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- WHAT YOU GET -->
+    <section id="what-you-get" aria-label="What you get">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <div class="kicker"><span class="dot" aria-hidden="true"></span>Core offer</div>
+            <h2>What you get</h2>
+          </div>
+          <p class="meta">Single-page, built for speed and enquiries.</p>
+        </div>
+
+        <div class="tabs">
+          <div class="tablist" role="tablist" aria-label="What you get tabs">
+            <button class="tab" role="tab" aria-selected="true" aria-controls="panel-1" id="tab-1" tabindex="0">
+              Single-page, mobile-friendly website
+            </button>
+            <button class="tab" role="tab" aria-selected="false" aria-controls="panel-2" id="tab-2" tabindex="-1">
+              Clear conversion layout designed for calls
+            </button>
+            <button class="tab" role="tab" aria-selected="false" aria-controls="panel-3" id="tab-3" tabindex="-1">
+              Click-to-call buttons throughout
+            </button>
+            <button class="tab" role="tab" aria-selected="false" aria-controls="panel-4" id="tab-4" tabindex="-1">
+              Fully hosted + maintained by Buildify
+            </button>
+          </div>
+
+          <div class="tabpanel" role="tabpanel" id="panel-1" aria-labelledby="tab-1">
+            <h3>Single-page, mobile-first by default</h3>
+            <p class="meta">Fast to scan, easy to use, and built for phones.</p>
+            <ul class="panel-bullets">
+              <li>
+                <svg class="check" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path d="M7 12l3 3 7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                Designed to look professional on mobile and desktop
+              </li>
+              <li>
+                <svg class="check" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path d="M7 12l3 3 7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                Simple layout that gets people to the point
+              </li>
+            </ul>
+          </div>
+
+          <div class="tabpanel" role="tabpanel" id="panel-2" aria-labelledby="tab-2" hidden>
+            <h3>Built to convert interest into enquiries</h3>
+            <p class="meta">People land, understand what you do, then call.</p>
+            <ul class="panel-bullets">
+              <li>
+                <svg class="check" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path d="M7 12l3 3 7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                Clear headline, services, and location coverage
+              </li>
+              <li>
+                <svg class="check" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path d="M7 12l3 3 7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                Strong calls-to-action without being pushy
+              </li>
+            </ul>
+          </div>
+
+          <div class="tabpanel" role="tabpanel" id="panel-3" aria-labelledby="tab-3" hidden>
+            <h3>Click-to-call where it matters</h3>
+            <p class="meta">Fewer steps between “I need this” and “I’m calling”.</p>
+            <ul class="panel-bullets">
+              <li>
+                <svg class="check" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path d="M7 12l3 3 7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                Sticky and in-page call buttons (especially on mobile)
+              </li>
+              <li>
+                <svg class="check" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path d="M7 12l3 3 7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                Tap-to-call phone numbers across key sections
+              </li>
+            </ul>
+          </div>
+
+          <div class="tabpanel" role="tabpanel" id="panel-4" aria-labelledby="tab-4" hidden>
+            <h3>Managed by Buildify</h3>
+            <p class="meta">You focus on jobs. We handle the website.</p>
+            <ul class="panel-bullets">
+              <li>
+                <svg class="check" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path d="M7 12l3 3 7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                Hosting, maintenance, and updates included
+              </li>
+              <li>
+                <svg class="check" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path d="M7 12l3 3 7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                Changes handled quickly as your services evolve
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- HOW IT WORKS -->
+    <section id="how-it-works" aria-label="How it works">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <div class="kicker"><span class="dot" aria-hidden="true"></span>Process</div>
+            <h2>How it works</h2>
+          </div>
+          <p class="meta">Four steps from idea to live site.</p>
+        </div>
+
+        <div class="steps-wrap">
+          <div class="steps" aria-label="Steps">
+            <div class="step reveal" data-step="1">
+              <div class="num" aria-hidden="true">1</div>
+              <div class="card">
+                <h3>Request a free example website</h3>
+                <p>Tell us your trade, location, and what you want customers to do (usually call).</p>
+              </div>
+            </div>
+
+            <div class="step reveal" data-step="2">
+              <div class="num" aria-hidden="true">2</div>
+              <div class="card">
+                <h3>We design it around your trade</h3>
+                <p>Clean, professional layout, written for real customers—no tech waffle.</p>
+              </div>
+            </div>
+
+            <div class="step reveal" data-step="3">
+              <div class="num" aria-hidden="true">3</div>
+              <div class="card">
+                <h3>You approve and we launch</h3>
+                <p>Quick edits if needed, then we get it live with click-to-call everywhere.</p>
+              </div>
+            </div>
+
+            <div class="step reveal" data-step="4">
+              <div class="num" aria-hidden="true">4</div>
+              <div class="card">
+                <h3>We manage it monthly</h3>
+                <p>Hosting and updates handled. You can request changes whenever you need.</p>
+              </div>
+            </div>
+          </div>
+
+          <aside class="card progress" aria-label="Scroll progress">
+            <h3>Progress</h3>
+            <p class="meta">As you scroll, the current step highlights.</p>
+
+            <div class="bar" aria-hidden="true"><div id="stepBar"></div></div>
+
+            <div class="progress-list" id="progressList">
+              <div class="progress-item" data-step-pill="1">1. Free example <span aria-hidden="true">•</span></div>
+              <div class="progress-item" data-step-pill="2">2. Trade design <span aria-hidden="true">•</span></div>
+              <div class="progress-item" data-step-pill="3">3. Launch <span aria-hidden="true">•</span></div>
+              <div class="progress-item" data-step-pill="4">4. Manage <span aria-hidden="true">•</span></div>
+            </div>
+
+            <div style="margin-top:12px;">
+              <a class="cta" href="#contact" style="width:100%;">Get a free example</a>
+            </div>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <!-- PRICING -->
+    <section id="pricing" aria-label="Pricing">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <div class="kicker"><span class="dot" aria-hidden="true"></span>Pricing</div>
+            <h2>Simple pricing</h2>
+          </div>
+          <p class="meta">Straightforward, simple pricing .</p>
+        </div>
+
+        <div class="price-card">
+          <div class="price-main reveal">
+            <p class="meta">A simple monthly plan, with a small one-time setup fee.</p>
+            <div class="price-copy">
+              <p><strong>Most clients pay around £29/month</strong> for a fully managed site.</p>
+              <p><strong>No contract.</strong> Cancel anytime.</p>
+              <p class="meta">The exact price depends on what you need (trade, areas covered, and page content).</p>
+            </div>
+            <div style="margin-top:12px; display:flex; gap:10px; flex-wrap:wrap;">
+              <a class="cta" href="#contact">Get a free example site</a>
+              <a class="ghost" href="tel:+447579043141">Call 07579 043141</a>
+            </div>
+          </div>
+
+          <div class="price-aside reveal" aria-label="Included">
+            <div class="included">
+              <div class="pill" aria-hidden="true" style="border-color: rgba(255,183,3,.35); background: rgba(255,183,3,.10); color: var(--navy);">
+                What’s included
+              </div>
+              <ul>
+                <li>
+                  <svg class="check" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                    <path d="M7 12l3 3 7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                  <span><strong>Most clients pay around £29/month</strong> for a managed site</span>
+                </li>
+                <li>
+                  <svg class="check" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                    <path d="M7 12l3 3 7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                  <span><strong>Small one-time setup fee</strong> to design and launch</span>
+                </li>
+                <li>
+                  <svg class="check" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                    <path d="M7 12l3 3 7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                  <span><strong>No contract</strong> - cancel anytime</span>
+                </li>
+                <li>
+                  <svg class="check" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                    <path d="M7 12l3 3 7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                  <span>Hosting, maintenance, and updates handled by Buildify</span>
+                </li>
+              </ul>
+            </div>
+
+            <div class="card soft">
+              <h3>Simple, trade-friendly</h3>
+              <p class="meta" style="margin-top:8px;">No confusing packages. We build what you need to get more calls.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FIT FILTER -->
+    <section id="fit" aria-label="Fit filter">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <div class="kicker"><span class="dot" aria-hidden="true"></span>Quick fit check</div>
+            <h2>Is Buildify right for you?</h2>
+          </div>
+          <p class="meta">This saves everyone time.</p>
+        </div>
+
+        <div class="fit">
+          <div class="fit-col reveal">
+            <h3>Great fit if you…</h3>
+            <ul class="fit-list">
+              <li>
+                <svg class="check" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path d="M7 12l3 3 7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                Run a local trade business and want more phone calls
+              </li>
+              <li>
+                <svg class="check" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path d="M7 12l3 3 7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                Want a site that looks trustworthy when people search you out
+              </li>
+              <li>
+                <svg class="check" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path d="M7 12l3 3 7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                Don’t want to deal with tech or ongoing maintenance
+              </li>
+            </ul>
+          </div>
+
+          <div class="fit-col reveal">
+            <h3>Not a fit if you…</h3>
+            <ul class="fit-list">
+              <li>
+                <svg class="check" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path d="M12 8v8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                  <path d="M8 12h8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                  <path d="M5 5h14v14H5z" stroke="currentColor" stroke-width="2" opacity=".35"/>
+                </svg>
+                Need e-commerce or a complex online shop
+              </li>
+              <li>
+                <svg class="check" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path d="M12 8v8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                  <path d="M8 12h8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                  <path d="M5 5h14v14H5z" stroke="currentColor" stroke-width="2" opacity=".35"/>
+                </svg>
+                Want a complicated booking platform with lots of custom logic
+              </li>
+              <li>
+                <svg class="check" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path d="M12 8v8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                  <path d="M8 12h8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                  <path d="M5 5h14v14H5z" stroke="currentColor" stroke-width="2" opacity=".35"/>
+                </svg>
+                Prefer to build and self-manage everything yourself
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section id="faq" aria-label="Frequently asked questions">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <div class="kicker"><span class="dot" aria-hidden="true"></span>FAQ</div>
+            <h2>Answers, without the fluff</h2>
+          </div>
+          <p class="meta">Short and clear.</p>
+        </div>
+
+        <div class="accordion">
+          <details class="reveal">
+            <summary>
+              How does the free example work?
+              <svg class="chev" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </summary>
+            <div class="faq-body">
+              You tell us your trade and location. We create a sample layout and copy so you can see what your site could look like. If you like it, we move forward.
+            </div>
+          </details>
+
+          <details class="reveal">
+            <summary>
+              How fast can we go live?
+              <svg class="chev" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </summary>
+            <div class="faq-body">
+              Once you approve the design and provide the basics (services, area, contact details, and any photos), we can usually launch quickly.
+            </div>
+          </details>
+
+          <details class="reveal">
+            <summary>
+              Is there a contract?
+              <svg class="chev" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </summary>
+            <div class="faq-body">
+              No. There’s no long contract. Keep it if it’s working for you.
+            </div>
+          </details>
+
+          <details class="reveal">
+            <summary>
+              Can I cancel anytime?
+              <svg class="chev" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </summary>
+            <div class="faq-body">
+              Yes. Cancel anytime. Simple as that.
+            </div>
+          </details>
+
+          <details class="reveal">
+            <summary>
+              Do you handle hosting and updates?
+              <svg class="chev" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </summary>
+            <div class="faq-body">
+              Yes. Hosting, maintenance, and content updates are handled by Buildify as part of the monthly plan.
+            </div>
+          </details>
+
+          <details class="reveal">
+            <summary>
+              What if I already have a website?
+              <svg class="chev" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </summary>
+            <div class="faq-body">
+              We can rebuild it into a cleaner, call-focused single-page site, or keep what works and simplify what doesn’t.
+            </div>
+          </details>
+
+          <details class="reveal">
+            <summary>
+              What do you need from me to start?
+              <svg class="chev" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </summary>
+            <div class="faq-body">
+              Your trade, service area, phone/email, a short list of services, and any photos you want to use. That’s it.
+            </div>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <!-- RECENT BUILDS (COLLAPSIBLE) -->
+    <section id="recent-builds" aria-label="Recent builds">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <div class="kicker"><span class="dot" aria-hidden="true"></span>Examples</div>
+            <h2>Recent builds</h2>
+          </div>
+          <p class="meta">Private previews available on request.</p>
+        </div>
+
+        <div class="collapse" id="buildsCollapse">
+          <div class="collapse-head">
+            <div>
+              <h3 style="margin:0;">Show / hide recent builds</h3>
+              <p class="meta" style="margin-top:6px;">No live links here, request a preview and we’ll share privately.</p>
+            </div>
+            <button class="collapse-btn" id="buildsBtn" type="button" aria-expanded="false" aria-controls="buildsContent">
+              <span id="buildsBtnText">Show</span>
+              <span aria-hidden="true">▾</span>
+            </button>
+          </div>
+
+          <div class="collapse-content" id="buildsContent">
+            <div class="grid-4 projects">
+              <div class="project">
+                <div class="tag">Plumber</div>
+                <strong>Private preview available on request</strong>
+                <span class="meta">Single-page, call-first layout</span>
+              </div>
+              <div class="project">
+                <div class="tag">Electrician</div>
+                <strong>Private preview available on request</strong>
+                <span class="meta">Mobile-first, clean sections</span>
+              </div>
+              <div class="project">
+                <div class="tag">Heating engineer</div>
+                <strong>Private preview available on request</strong>
+                <span class="meta">Click-to-call throughout</span>
+              </div>
+              <div class="project">
+                <div class="tag">Roofer</div>
+                <strong>Private preview available on request</strong>
+                <span class="meta">Trust-first, minimal design</span>
+              </div>
+            </div>
+
+            <div style="margin-top:12px; display:flex; gap:10px; flex-wrap:wrap;">
+              <a class="cta" href="#contact" id="requestPreviewBtn">Request a preview</a>
+              <a class="ghost" href="mailto:tradesitebuilder@outlook.com">Email to request</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact" aria-label="Contact">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <div class="kicker"><span class="dot" aria-hidden="true"></span>Contact</div>
+            <h2>Want to see what your website could look like?</h2>
+            <p class="meta" style="margin-top:10px;">Request your free example site, no pressure.</p>
+          </div>
+          <div class="pill" aria-hidden="true" style="border-color: rgba(251,133,0,.35); background: rgba(251,133,0,.10); color: var(--navy);">
+            Fast reply • Trade-friendly
+          </div>
+        </div>
+
+        <div class="contact-grid">
+          <div class="contact-card reveal">
+            <h3>Contact options</h3>
+            <p class="meta" style="margin-top:8px;">Call, email, or send a message.</p>
+
+            <div class="contact-actions">
+              <div class="card soft">
+                <div style="display:flex; justify-content:space-between; align-items:flex-start; gap:12px; flex-wrap:wrap;">
+                  <div>
+                    <strong style="display:block; color: var(--navy);">Phone</strong>
+                    <a href="tel:+447579043141" style="text-decoration:none; font-weight:900; color:var(--navy);">
+                      07579 043141
+                    </a>
+                    <div class="meta">Tap to call</div>
+                  </div>
+
+                  <div class="action-row">
+                    <button class="mini-btn" type="button" data-copy="07579043141" data-copy-label="Phone number">
+                      <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                        <path d="M8 8h10v12H8z" stroke="currentColor" stroke-width="2"/>
+                        <path d="M6 16H5a1 1 0 01-1-1V5a1 1 0 011-1h10a1 1 0 011 1v1" stroke="currentColor" stroke-width="2" opacity=".6"/>
+                      </svg>
+                      Copy number
+                    </button>
+                    <a class="mini-btn" href="tel:+447579043141">
+                      <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                        <path d="M6.5 3.5l3 1.5-1.5 3c1.2 2.6 3.4 4.8 6 6l3-1.5 1.5 3c.2.5 0 1-.5 1.2l-2.3 1c-.6.3-1.3.4-2 .2-4.8-1.4-8.6-5.2-10-10-.2-.7-.1-1.4.2-2l1-2.3c.2-.5.7-.7 1.2-.5z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+                      </svg>
+                      Call now
+                    </a>
+                  </div>
+                </div>
+              </div>
+
+              <div class="card soft">
+                <div style="display:flex; justify-content:space-between; align-items:flex-start; gap:12px; flex-wrap:wrap;">
+                  <div>
+                    <strong style="display:block; color: var(--navy);">Email</strong>
+                    <a href="mailto:tradesitebuilder@outlook.com" style="text-decoration:none; font-weight:900; color:var(--navy);">
+                      tradesitebuilder@outlook.com
+                    </a>
+                    <div class="meta">Tap to email</div>
+                  </div>
+
+                  <div class="action-row">
+                    <button class="mini-btn" type="button" data-copy="tradesitebuilder@outlook.com" data-copy-label="Email">
+                      <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                        <path d="M8 8h10v12H8z" stroke="currentColor" stroke-width="2"/>
+                        <path d="M6 16H5a1 1 0 01-1-1V5a1 1 0 011-1h10a1 1 0 011 1v1" stroke="currentColor" stroke-width="2" opacity=".6"/>
+                      </svg>
+                      Copy email
+                    </button>
+                    <a class="mini-btn" href="mailto:tradesitebuilder@outlook.com">
+                      <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                        <path d="M4 6h16v12H4z" stroke="currentColor" stroke-width="2"/>
+                        <path d="M4 7l8 6 8-6" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+                      </svg>
+                      Email
+                    </a>
+                  </div>
+                </div>
+              </div>
+
+              <div class="card soft">
+                <strong style="display:block; color: var(--navy);">Manchester-based, operating globally</strong>
+                <p class="meta" style="margin-top:6px;">We build sites for trades across the UK and beyond.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="contact-card reveal" aria-label="Message form">
+            <h3>Message Buildify</h3>
+            <p class="meta" style="margin-top:8px;">Fill this in and we’ll reply with next steps.</p>
+
+            <div class="success" id="formSuccess" role="status" aria-live="polite">
+              <strong>Message sent.</strong>
+              <div>Thanks, we’ll get back to you shortly.</div>
+              <div class="what-next">
+                What happens next: we’ll reply asking for your services, your area, and any photos you’d like to use.
+              </div>
+            </div>
+
+            <form id="contactForm" novalidate>
+              <div class="fields">
+                <div class="field" data-field="name">
+                  <label for="name">Name</label>
+                  <input id="name" name="name" autocomplete="name" required />
+                  <div class="error" id="err-name">Please enter your name.</div>
+                </div>
+
+                <div class="field" data-field="trade">
+                  <label for="trade">Trade</label>
+                  <input id="trade" name="trade" placeholder="e.g., Plumber" required />
+                  <div class="error" id="err-trade">Please enter your trade.</div>
+                </div>
+
+                <div class="field" data-field="location">
+                  <label for="location">Location</label>
+                  <input id="location" name="location" placeholder="e.g., Rochdale" required />
+                  <div class="error" id="err-location">Please enter your location.</div>
+                </div>
+
+                <div class="field" data-field="phone">
+                  <label for="phone">Phone</label>
+                  <input id="phone" name="phone" inputmode="tel" autocomplete="tel" placeholder="e.g., 07..." required />
+                  <div class="error" id="err-phone">Please enter a valid UK phone number.</div>
+                </div>
+
+                <div class="field full" data-field="email">
+                  <label for="email">Email</label>
+                  <input id="email" name="email" inputmode="email" autocomplete="email" placeholder="you@example.com" required />
+                  <div class="error" id="err-email">Please enter a valid email address.</div>
+                </div>
+
+                <div class="field full" data-field="message">
+                  <label for="message">Message</label>
+                  <textarea id="message" name="message" placeholder="Tell us what you do and what you want your website to achieve." required></textarea>
+                  <div class="error" id="err-message">Please add a short message.</div>
+                </div>
+              </div>
+
+              <div class="form-actions">
+                <button class="cta" type="submit">Get my free example</button>
+                <div class="note">By sending this, you’re simply requesting a free example - no obligation.</div>
+              </div>
+
+              <p class="note" id="formStatus" aria-live="polite" style="margin-top:6px;"></p>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer aria-label="Footer">
+      <div class="container">
+        <div class="footer-inner">
+          <div style="display:flex; gap:12px; align-items:flex-start;">
+            <div class="logo" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none">
+                <path d="M8 5h6a4 4 0 010 8H8V5z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+                <path d="M8 13h7a3.5 3.5 0 010 7H8v-7z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+              </svg>
+            </div>
+            <div>
+              <strong style="display:block; color:var(--navy);">Buildify</strong>
+              <div class="meta">Manchester-based, operating globally</div>
+              <div class="meta" style="margin-top:6px;">Buildify Founded by Ethan</div>
+            </div>
+          </div>
+
+          <div class="footer-links" aria-label="Footer links">
+            <a href="#what-you-get">What you get</a>
+            <a href="#how-it-works">How it works</a>
+            <a href="#pricing">Pricing</a>
+            <a href="#faq">FAQ</a>
+            <a href="#contact">Contact</a>
+          </div>
+        </div>
+      </div>
+    </footer>
+  </main>
+
+  <!-- Back to top -->
+  <button class="backtop" id="backTop" type="button" aria-label="Back to top">
+    <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+      <path d="M12 6l-6 6M12 6l6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M12 6v12" stroke="currentColor" stroke-width="2" stroke-linecap="round" opacity=".5"/>
+    </svg>
+  </button>
+
+  <!-- Mobile CTA bar -->
+  <div class="mobile-cta" aria-label="Mobile quick actions">
+    <a href="tel:+447579043141" aria-label="Call Buildify">
+      <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <path d="M6.5 3.5l3 1.5-1.5 3c1.2 2.6 3.4 4.8 6 6l3-1.5 1.5 3c.2.5 0 1-.5 1.2l-2.3 1c-.6.3-1.3.4-2 .2-4.8-1.4-8.6-5.2-10-10-.2-.7-.1-1.4.2-2l1-2.3c.2-.5.7-.7 1.2-.5z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+      </svg>
+      Call
+    </a>
+    <a href="mailto:tradesitebuilder@outlook.com" aria-label="Email Buildify">
+      <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <path d="M4 6h16v12H4z" stroke="currentColor" stroke-width="2"/>
+        <path d="M4 7l8 6 8-6" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+      </svg>
+      Email
+    </a>
+    <a class="primary" href="#contact" aria-label="Get a free example site">
+      <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <path d="M12 3v18" stroke="currentColor" stroke-width="2" stroke-linecap="round" opacity=".6"/>
+        <path d="M3 12h18" stroke="currentColor" stroke-width="2" stroke-linecap="round" opacity=".6"/>
+        <path d="M7 7h10v10H7z" stroke="currentColor" stroke-width="2"/>
+      </svg>
+      Free example
+    </a>
+  </div>
+
+  <script>
+    (function(){
+      const prefersReduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      // Header scroll styling
+      const header = document.getElementById('siteHeader');
+      const backTop = document.getElementById('backTop');
+      const onScroll = () => {
+        const scrolled = window.scrollY > 8;
+        header.classList.toggle('scrolled', scrolled);
+        backTop.classList.toggle('show', window.scrollY > 700);
+      };
+      window.addEventListener('scroll', onScroll, {passive:true});
+      onScroll();
+
+      // Mobile menu
+      const menuBtn = document.getElementById('menuBtn');
+      const drawer = document.getElementById('mobileDrawer');
+
+      function closeDrawer(){
+        menuBtn.setAttribute('aria-expanded', 'false');
+        drawer.classList.remove('open');
+      }
+      function openDrawer(){
+        menuBtn.setAttribute('aria-expanded', 'true');
+        drawer.classList.add('open');
+        const firstLink = drawer.querySelector('a[data-nav-mobile]');
+        if(firstLink) firstLink.focus({preventScroll:true});
+      }
+      menuBtn.addEventListener('click', () => {
+        const expanded = menuBtn.getAttribute('aria-expanded') === 'true';
+        expanded ? closeDrawer() : openDrawer();
+      });
+      document.addEventListener('keydown', (e) => {
+        if(e.key === 'Escape') closeDrawer();
+      });
+      document.addEventListener('click', (e) => {
+        if(!drawer.contains(e.target) && !menuBtn.contains(e.target)){
+          closeDrawer();
+        }
+      });
+
+      // Smooth scroll with offset
+      const headerOffset = () => parseInt(getComputedStyle(document.documentElement).getPropertyValue('--header-h'), 10) + 10;
+
+      function smoothScrollTo(hash){
+        const el = document.querySelector(hash);
+        if(!el) return;
+        const y = el.getBoundingClientRect().top + window.pageYOffset - headerOffset();
+        window.scrollTo({ top: y, behavior: prefersReduced ? 'auto' : 'smooth' });
+      }
+
+      document.querySelectorAll('a[href^="#"]').forEach(a => {
+        a.addEventListener('click', (e) => {
+          const href = a.getAttribute('href');
+          if(href && href.length > 1){
+            e.preventDefault();
+            closeDrawer();
+            history.pushState(null, '', href);
+            smoothScrollTo(href);
+          }
+        });
+      });
+
+      // Active nav highlight
+      const navLinks = Array.from(document.querySelectorAll('[data-nav]'));
+      const sections = navLinks.map(a => document.querySelector(a.getAttribute('href'))).filter(Boolean);
+
+      const setActive = (id) => {
+        navLinks.forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#' + id));
+      };
+
+      if('IntersectionObserver' in window){
+        const navObserver = new IntersectionObserver((entries) => {
+          const visible = entries.filter(en => en.isIntersecting)
+            .sort((a,b) => b.intersectionRatio - a.intersectionRatio)[0];
+          if(visible && visible.target && visible.target.id){
+            setActive(visible.target.id);
+          }
+        }, { threshold:[0.2,0.35,0.5,0.7], rootMargin: `-${headerOffset()}px 0px -60% 0px` });
+
+        sections.forEach(sec => navObserver.observe(sec));
+      }
+
+      // Reveal animations + sentence emphasis
+      const revealEls = document.querySelectorAll('.reveal');
+      const highlightTargets = document.querySelectorAll('[data-highlight]');
+
+      if('IntersectionObserver' in window){
+        const revealObs = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            if(entry.isIntersecting){
+              entry.target.classList.add('in');
+              revealObs.unobserve(entry.target);
+            }
+          });
+        }, { threshold: 0.15 });
+        revealEls.forEach(el => revealObs.observe(el));
+
+        const highlightObs = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            entry.target.classList.toggle('on', entry.isIntersecting);
+          });
+        }, { threshold: 0.85, rootMargin: '0px 0px -10% 0px' });
+        highlightTargets.forEach(el => highlightObs.observe(el));
+      } else {
+        revealEls.forEach(el => el.classList.add('in'));
+      }
+
+      // Hero cursor glow
+      const hero = document.getElementById('heroCard');
+      const updateHeroGlow = (e) => {
+        const r = hero.getBoundingClientRect();
+        const x = ((e.clientX - r.left) / r.width) * 100;
+        const y = ((e.clientY - r.top) / r.height) * 100;
+        hero.style.setProperty('--mx', x + '%');
+        hero.style.setProperty('--my', y + '%');
+      };
+      if(hero){
+        hero.addEventListener('mousemove', updateHeroGlow);
+        hero.addEventListener('mouseleave', () => {
+          hero.style.setProperty('--mx', '25%');
+          hero.style.setProperty('--my', '30%');
+        });
+      }
+
+      // Tabs
+      const tabs = Array.from(document.querySelectorAll('.tab'));
+      function activateTab(tab){
+        tabs.forEach(t => {
+          const selected = t === tab;
+          t.setAttribute('aria-selected', selected ? 'true' : 'false');
+          t.tabIndex = selected ? 0 : -1;
+          const panel = document.getElementById(t.getAttribute('aria-controls'));
+          if(panel) panel.hidden = !selected;
+        });
+        tab.focus({preventScroll:true});
+      }
+      tabs.forEach(t => {
+        t.addEventListener('click', () => activateTab(t));
+        t.addEventListener('keydown', (e) => {
+          const idx = tabs.indexOf(t);
+          if(e.key === 'ArrowDown' || e.key === 'ArrowRight'){
+            e.preventDefault(); activateTab(tabs[(idx + 1) % tabs.length]);
+          }
+          if(e.key === 'ArrowUp' || e.key === 'ArrowLeft'){
+            e.preventDefault(); activateTab(tabs[(idx - 1 + tabs.length) % tabs.length]);
+          }
+          if(e.key === 'Home'){ e.preventDefault(); activateTab(tabs[0]); }
+          if(e.key === 'End'){ e.preventDefault(); activateTab(tabs[tabs.length - 1]); }
+        });
+      });
+
+      // How-it-works progress
+      const stepBar = document.getElementById('stepBar');
+      const stepPills = Array.from(document.querySelectorAll('[data-step-pill]'));
+      const stepEls = Array.from(document.querySelectorAll('[data-step]'));
+      const setStepActive = (n) => {
+        stepPills.forEach(p => p.classList.toggle('active', p.getAttribute('data-step-pill') === String(n)));
+        const pct = ((n - 1) / 3) * 100;
+        stepBar.style.width = pct + '%';
+      };
+
+      if('IntersectionObserver' in window && stepEls.length){
+        const stepObs = new IntersectionObserver((entries) => {
+          const visible = entries.filter(en => en.isIntersecting)
+            .sort((a,b) => b.intersectionRatio - a.intersectionRatio)[0];
+          if(visible){
+            const n = visible.target.getAttribute('data-step');
+            setStepActive(Number(n));
+          }
+        }, { threshold: [0.35, 0.5, 0.65], rootMargin: `-${headerOffset()}px 0px -40% 0px` });
+        stepEls.forEach(el => stepObs.observe(el));
+      } else {
+        setStepActive(1);
+      }
+
+      // Recent builds collapsible
+      const buildsCollapse = document.getElementById('buildsCollapse');
+      const buildsBtn = document.getElementById('buildsBtn');
+      const buildsBtnText = document.getElementById('buildsBtnText');
+      if(buildsBtn && buildsCollapse){
+        buildsBtn.addEventListener('click', () => {
+          const open = buildsCollapse.classList.toggle('open');
+          buildsBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
+          buildsBtnText.textContent = open ? 'Hide' : 'Show';
+        });
+      }
+
+      // Copy-to-clipboard
+      async function copyText(text){
+        try{
+          if(navigator.clipboard && navigator.clipboard.writeText){
+            await navigator.clipboard.writeText(text);
+            return true;
+          }
+        } catch(e){}
+        const ta = document.createElement('textarea');
+        ta.value = text;
+        ta.setAttribute('readonly','');
+        ta.style.position = 'absolute';
+        ta.style.left = '-9999px';
+        document.body.appendChild(ta);
+        ta.select();
+        let ok = false;
+        try{ ok = document.execCommand('copy'); } catch(e){}
+        document.body.removeChild(ta);
+        return ok;
+      }
+
+      document.querySelectorAll('[data-copy]').forEach(btn => {
+        btn.addEventListener('click', async () => {
+          const text = btn.getAttribute('data-copy');
+          const label = btn.getAttribute('data-copy-label') || 'Text';
+          const ok = await copyText(text);
+          const original = btn.textContent.trim();
+          btn.textContent = ok ? `${label} copied` : `Copy failed`;
+          setTimeout(() => btn.textContent = original, 1200);
+        });
+      });
+
+      // Back to top
+      backTop.addEventListener('click', () => {
+        window.scrollTo({ top: 0, behavior: prefersReduced ? 'auto' : 'smooth' });
+      });
+
+      // Contact form validation + success state
+      const form = document.getElementById('contactForm');
+      const status = document.getElementById('formStatus');
+      const success = document.getElementById('formSuccess');
+
+      const validators = {
+        name: (v) => v.trim().length >= 2,
+        trade: (v) => v.trim().length >= 2,
+        location: (v) => v.trim().length >= 2,
+        phone: (v) => {
+          const s = v.replace(/\s+/g,'').trim();
+          if(!s) return false;
+          const okPrefix = s.startsWith('0') || s.startsWith('+44') || s.startsWith('44');
+          const digits = s.replace(/\D/g,'');
+          return okPrefix && digits.length >= 10 && digits.length <= 13;
+        },
+        email: (v) => /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/i.test(v.trim()),
+        message: (v) => v.trim().length >= 10
+      };
+
+      function setInvalid(fieldEl, invalid){
+        fieldEl.classList.toggle('invalid', invalid);
+      }
+      function validateField(key){
+        const field = form.querySelector(`[data-field="${key}"]`);
+        const input = field ? field.querySelector('input, textarea') : null;
+        if(!field || !input) return true;
+        const ok = validators[key](input.value);
+        setInvalid(field, !ok);
+        return ok;
+      }
+
+      ['name','trade','location','phone','email','message'].forEach(k => {
+        const field = form.querySelector(`[data-field="${k}"]`);
+        const input = field ? field.querySelector('input, textarea') : null;
+        if(!input) return;
+        input.addEventListener('input', () => validateField(k));
+        input.addEventListener('blur', () => validateField(k));
+      });
+
+      form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        status.textContent = '';
+        const keys = ['name','trade','location','phone','email','message'];
+        const ok = keys.map(k => validateField(k)).every(Boolean);
+
+        if(!ok){
+          status.textContent = 'Please fix the highlighted fields and try again.';
+          const firstInvalid = form.querySelector('.field.invalid input, .field.invalid textarea');
+          if(firstInvalid) firstInvalid.focus();
+          return;
+        }
+
+        form.style.display = 'none';
+        success.style.display = 'block';
+      });
+
+      // Request preview button ensures form visible
+      const requestPreviewBtn = document.getElementById('requestPreviewBtn');
+      if(requestPreviewBtn){
+        requestPreviewBtn.addEventListener('click', () => {
+          const formEl = document.getElementById('contactForm');
+          const successEl = document.getElementById('formSuccess');
+          if(formEl && successEl){
+            successEl.style.display = 'none';
+            formEl.style.display = 'grid';
+          }
+        });
+      }
+
+      // Hash load
+      window.addEventListener('load', () => {
+        if(location.hash){
+          setTimeout(() => smoothScrollTo(location.hash), 60);
+        }
+      });
+
+    })();
+  </script>
+</body>
+</html>
